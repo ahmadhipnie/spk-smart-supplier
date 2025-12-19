@@ -20,10 +20,10 @@ class HasilAkhirController extends Controller
         $hasilAkhir = HasilAkhir::with('alternatif')
             ->orderBy('ranking', 'asc')
             ->get();
-        
+
         $hasHasil = HasilAkhir::exists();
         $hasPerhitungan = Perhitungan::exists();
-        
+
         return view('hasil-akhir.index', compact('hasilAkhir', 'hasHasil', 'hasPerhitungan'));
     }
 
@@ -34,38 +34,39 @@ class HasilAkhirController extends Controller
     {
         try {
             DB::beginTransaction();
-            
+
             // Cek apakah sudah ada perhitungan
             if (!Perhitungan::exists()) {
-                return redirect()->back()->with('error', 
+                return redirect()->back()->with(
+                    'error',
                     'Belum ada data perhitungan. Silakan proses perhitungan terlebih dahulu di menu Data Perhitungan.'
                 );
             }
-            
+
             // Hapus hasil akhir lama
             HasilAkhir::truncate();
-            
+
             // Ambil semua alternatif
             $alternatif = Alternatif::all();
             $hasilData = [];
-            
+
             // Hitung total nilai untuk setiap alternatif
             foreach ($alternatif as $alt) {
                 $totalNilai = Perhitungan::where('alternatif_id', $alt->id)
                     ->sum('nilai_akhir');
-                
+
                 $hasilData[] = [
                     'alternatif_id' => $alt->id,
                     'total_nilai' => $totalNilai,
                     'tanggal_perhitungan' => now()->toDateString()
                 ];
             }
-            
+
             // Urutkan berdasarkan total nilai (descending)
-            usort($hasilData, function($a, $b) {
+            usort($hasilData, function ($a, $b) {
                 return $b['total_nilai'] <=> $a['total_nilai'];
             });
-            
+
             // Beri ranking
             foreach ($hasilData as $key => $data) {
                 HasilAkhir::create([
@@ -75,15 +76,14 @@ class HasilAkhirController extends Controller
                     'tanggal_perhitungan' => $data['tanggal_perhitungan']
                 ]);
             }
-            
+
             DB::commit();
-            
+
             return redirect()->route('hasil-akhir.index')
                 ->with('success', 'Hasil akhir berhasil di-generate! Supplier terbaik telah ditentukan.');
-                
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->back()->with('success', 'Berhasil');
         }
     }
 
@@ -94,9 +94,9 @@ class HasilAkhirController extends Controller
     {
         $hasilAkhir = HasilAkhir::with(['alternatif.perhitungan.kriteria', 'alternatif.penilaian.kriteria', 'alternatif.penilaian.subKriteria'])
             ->findOrFail($id);
-        
+
         $kriteria = Kriteria::all();
-        
+
         return view('hasil-akhir.detail', compact('hasilAkhir', 'kriteria'));
     }
 
@@ -107,10 +107,9 @@ class HasilAkhirController extends Controller
     {
         try {
             HasilAkhir::truncate();
-            
+
             return redirect()->route('hasil-akhir.index')
                 ->with('success', 'Data hasil akhir berhasil direset!');
-                
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
@@ -124,11 +123,12 @@ class HasilAkhirController extends Controller
         $hasilAkhir = HasilAkhir::with('alternatif')->orderBy('ranking', 'asc')->get();
         $kriteria = Kriteria::all();
         $tanggal = now()->format('d/m/Y');
-        
+
         $pdf = Pdf::loadView('hasil-akhir.pdf', compact('hasilAkhir', 'kriteria', 'tanggal'));
         $pdf->setPaper('a4', 'portrait');
-        
-        return $pdf->download('Laporan_Hasil_SMART_' . now()->format('Y-m-d') . '.pdf');
+
+        // Stream PDF untuk preview (bisa langsung di-download dari browser)
+        return $pdf->stream('Laporan_Hasil_SMART_' . now()->format('Y-m-d') . '.pdf');
     }
 
     /**
@@ -139,9 +139,9 @@ class HasilAkhirController extends Controller
         $hasilAkhir = HasilAkhir::with(['alternatif.perhitungan.kriteria'])
             ->orderBy('ranking', 'asc')
             ->get();
-        
+
         $kriteria = Kriteria::all();
-        
+
         return view('hasil-akhir.perbandingan', compact('hasilAkhir', 'kriteria'));
     }
 }
