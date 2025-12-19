@@ -73,27 +73,25 @@
     <hr class="sidebar-divider">
     <div class="sidebar-heading">PENGATURAN</div>
 
-    <li class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
-        @if (Route::has('users.index'))
-            <a class="nav-link" href="{{ route('users.index') }}">
-                <i class="fas fa-fw fa-users-cog"></i><span>Data User</span>
-            </a>
-        @else
-            <a class="nav-link disabled" href="#">
-                <i class="fas fa-fw fa-users-cog"></i><span>Data User</span>
-            </a>
-        @endif
-    </li>
+    @auth
+    {{-- menu lain (dashboard, kriteria, dst) tampil untuk semua role --}}
 
-    <li class="nav-item {{ request()->routeIs('profile') || request()->routeIs('profile.*') ? 'active' : '' }}">
-        @if (Route::has('profile'))
-            <a class="nav-link" href="{{ route('profile') }}">
-                <i class="fas fa-fw fa-user"></i><span>Data Profile</span>
-            </a>
-        @else
-            <a class="nav-link disabled" href="#">
-                <i class="fas fa-fw fa-user"></i><span>Data Profile</span>
-            </a>
-        @endif
+    @if(auth()->user()->role === 'admin')
+    <li class="nav-item">
+        <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-users-cog"></i>
+            <p>Data User</p>
+        </a>
     </li>
+    @endif
+@endauth
+
+
+    <li class="nav-item">
+    <a href="{{ route('profile.index') }}" class="nav-link {{ Request::is('profile*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-user-circle"></i>
+        <p>Profile Saya</p>
+    </a>
+</li>
+
 </ul>

@@ -18,23 +18,40 @@
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name ?? 'Guest' }}</span>
-                <img class="img-profile rounded-circle" src="{{ asset('img/undraw_profile.svg') }}" style="width:32px;height:32px;">
+        @auth
+        <!-- User Dropdown (Hanya tampil jika sudah login) -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
+                <i class="fas fa-user-circle"></i> {{ Auth::user()->name }}
             </a>
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                @if (Route::has('login'))
-                    @auth
-                        @if (Route::has('logout'))
-                            <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">@csrf</form>
-                        @endif
-                    @else
-                        <a class="dropdown-item" href="{{ route('login') }}">Login</a>
-                    @endauth
-                @endif
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="{{ route('profile.index') }}">
+                    <i class="fas fa-user"></i> Profil Saya
+                </a>
+                <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                    <i class="fas fa-edit"></i> Edit Profil
+                </a>
+                <a class="dropdown-item" href="{{ route('profile.edit-password') }}">
+                    <i class="fas fa-key"></i> Ubah Password
+                </a>
+                <div class="dropdown-divider"></div>
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </form>
             </div>
         </li>
+        @endauth
+
+        @guest
+        <!-- Link Login (Hanya tampil jika belum login) -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+        </li>
+        @endguest
     </ul>
 </nav>
