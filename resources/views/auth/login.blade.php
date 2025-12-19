@@ -194,7 +194,7 @@
                 </form>
             </div>
 
-            <!-- Footer Card -->
+            {{-- <!-- Footer Card -->
             <div style="
                 background: #f8f9fa;
                 padding: 15px 30px;
@@ -207,7 +207,7 @@
                     <div><strong style="color: #dc3545;">Admin:</strong> admin@admin.com</div>
                     <div><strong style="color: #007bff;">Pass:</strong> password</div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <!-- Copyright -->

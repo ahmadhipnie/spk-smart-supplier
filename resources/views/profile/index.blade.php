@@ -112,21 +112,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Status Email</th>
-                                    <td>
-                                        @if($user->email_verified_at)
-                                            <span class="badge badge-success">
-                                                <i class="fas fa-check-circle"></i> Verified
-                                            </span>
-                                            <br>
-                                            <small class="text-muted">Diverifikasi pada {{ $user->email_verified_at->format('d/m/Y H:i') }}</small>
-                                        @else
-                                            <span class="badge badge-warning">
-                                                <i class="fas fa-clock"></i> Belum Verified
-                                            </span>
-                                        @endif
-                                    </td>
-                                </tr>
+</tr>
+
                                 <tr>
                                     <th>Terdaftar Sejak</th>
                                     <td>
@@ -136,31 +123,6 @@
                                     </td>
                                 </tr>
                             </table>
-
-                            <div class="row mt-4">
-                                <div class="col-md-6">
-                                    <div class="info-box bg-info">
-                                        <span class="info-box-icon">
-                                            <i class="fas fa-shield-alt"></i>
-                                        </span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Keamanan Akun</span>
-                                            <span class="info-box-number">Terlindungi</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="info-box bg-success">
-                                        <span class="info-box-icon">
-                                            <i class="fas fa-check-circle"></i>
-                                        </span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Status Akun</span>
-                                            <span class="info-box-number">Aktif</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <!-- Hak Akses -->
                             <div class="alert alert-info mt-3">
@@ -175,7 +137,7 @@
                                     </ul>
                                 @else
                                     <ul class="mb-0">
-                                        <li>Melihat data kriteria dan alternatif</li>
+                                        <li>Akses User terbatas</li>
                                         <li>Melihat hasil perhitungan dan ranking supplier</li>
                                         <li>Akses terbatas untuk mengedit dan menghapus data</li>
                                     </ul>

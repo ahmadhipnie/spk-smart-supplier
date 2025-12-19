@@ -8,9 +8,11 @@
                 <div class="card-header">
                     <h3 class="card-title">Data Sub Kriteria</h3>
                     <div class="card-tools">
+                        @if(auth()->user()->role === 'admin')
                         <a href="{{ route('sub-kriteria.create') }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-plus"></i> Tambah Sub Kriteria
                         </a>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -52,9 +54,13 @@
                                         <a href="{{ route('sub-kriteria.show', $item->id) }}" class="btn btn-info btn-sm" title="Detail">
                                             <i class="fas fa-eye"></i>
                                         </a>
+                                        @if(auth()->user()->role === 'admin')
                                         <a href="{{ route('sub-kriteria.edit', $item->id) }}" class="btn btn-warning btn-sm" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        @endif
+
+                                        @if(auth()->user()->role === 'admin')
                                         <form action="{{ route('sub-kriteria.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus sub kriteria ini?')">
                                             @csrf
                                             @method('DELETE')
@@ -62,6 +68,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @empty

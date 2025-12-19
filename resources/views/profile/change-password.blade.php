@@ -6,7 +6,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header bg-warning">
-                    <h3 class="card-title">
+                    <h3 class="card-title" style="color: white;">
                         <i class="fas fa-key"></i> Ubah Password
                     </h3>
                     <div class="card-tools">
