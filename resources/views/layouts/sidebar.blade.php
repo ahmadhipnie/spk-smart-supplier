@@ -30,41 +30,45 @@
 </li>
 
 
-    <li class="nav-item {{ request()->routeIs('subkriteria.*') ? 'active' : '' }}">
-        @if (Route::has('subkriteria.index'))
-            <a class="nav-link" href="{{ route('subkriteria.index') }}">
-                <i class="fas fa-fw fa-list"></i><span>Data Sub Kriteria</span>
-            </a>
-        @else
-            <a class="nav-link disabled" href="#">
-                <i class="fas fa-fw fa-list"></i><span>Data Sub Kriteria</span>
-            </a>
-        @endif
-    </li>
+    <li class="nav-item">
+    <a href="{{ route('sub-kriteria.index') }}" class="nav-link {{ Request::is('sub-kriteria*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-th-list"></i>
+        <p>Data Sub Kriteria</p>
+    </a>
+</li>
 
-    <li class="nav-item {{ request()->routeIs('supplier.*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('supplier.index') }}">
-            <i class="fas fa-fw fa-user-friends"></i><span>Data Alternatif</span>
-        </a>
-    </li>
 
-    <li class="nav-item {{ request()->routeIs('penilaian.*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('penilaian.index') }}">
-            <i class="fas fa-fw fa-edit"></i><span>Data Penilaian</span>
-        </a>
-    </li>
+    <li class="nav-item">
+    <a href="{{ route('alternatif.index') }}" class="nav-link {{ Request::is('alternatif*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-users"></i>
+        <p>Data Alternatif</p>
+    </a>
+</li>
 
-    <li class="nav-item {{ request()->routeIs('perhitungan') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('perhitungan') }}">
-            <i class="fas fa-fw fa-calculator"></i><span>Data Perhitungan</span>
-        </a>
-    </li>
 
-    <li class="nav-item {{ request()->routeIs('hasil') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('hasil') }}">
-            <i class="fas fa-fw fa-chart-bar"></i><span>Data Hasil Akhir</span>
-        </a>
-    </li>
+    <li class="nav-item">
+    <a href="{{ route('penilaian.index') }}" class="nav-link {{ Request::is('penilaian*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-star"></i>
+        <p>Data Penilaian</p>
+    </a>
+</li>
+
+
+    <li class="nav-item">
+    <a href="{{ route('perhitungan.index') }}" class="nav-link {{ Request::is('perhitungan*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-calculator"></i>
+        <p>Data Perhitungan</p>
+    </a>
+</li>
+
+
+    <li class="nav-item">
+    <a href="{{ route('hasil-akhir.index') }}" class="nav-link {{ Request::is('hasil-akhir*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-trophy"></i>
+        <p>Data Hasil Akhir</p>
+    </a>
+</li>
+
 
     <hr class="sidebar-divider">
     <div class="sidebar-heading">PENGATURAN</div>
