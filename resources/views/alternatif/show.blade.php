@@ -11,9 +11,13 @@
                         <a href="{{ route('alternatif.index') }}" class="btn btn-secondary btn-sm">
                             <i class="fas fa-arrow-left"></i> Kembali
                         </a>
+
+                        @if(auth()->user()->role === 'admin')
                         <a href="{{ route('alternatif.edit', $alternatif->id) }}" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit"></i> Edit
                         </a>
+                        @endif
+                        
                     </div>
                 </div>
                 <div class="card-body">

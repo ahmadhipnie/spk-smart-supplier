@@ -8,9 +8,11 @@
                 <div class="card-header">
                     <h3 class="card-title">Data Alternatif</h3>
                     <div class="card-tools">
+                        @if(auth()->user()->role === 'admin')
                         <a href="{{ route('alternatif.create') }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-plus"></i> Tambah Alternatif
                         </a>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -58,9 +60,14 @@
                                         <a href="{{ route('alternatif.show', $item->id) }}" class="btn btn-info btn-sm" title="Detail">
                                             <i class="fas fa-eye"></i>
                                         </a>
+
+                                        @if(auth()->user()->role === 'admin')
                                         <a href="{{ route('alternatif.edit', $item->id) }}" class="btn btn-warning btn-sm" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        @endif
+
+                                        @if(auth()->user()->role === 'admin')
                                         <form action="{{ route('alternatif.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus alternatif ini?\n\nPeringatan: Semua data penilaian dan perhitungan terkait akan ikut terhapus!')">
                                             @csrf
                                             @method('DELETE')
@@ -68,6 +75,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @empty
