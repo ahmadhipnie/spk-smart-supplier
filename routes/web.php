@@ -41,9 +41,6 @@ Route::get('perhitungan/detail/{alternatif}', [PerhitunganController::class, 'de
 Route::delete('perhitungan/reset', [PerhitunganController::class, 'reset'])->name('perhitungan.reset');
 Route::get('perhitungan/rumus', [PerhitunganController::class, 'rumus'])->name('perhitungan.rumus');
 
-Route::get('/perhitungan', [PerhitunganController::class, 'index'])->name('perhitungan');
-Route::post('/perhitungan/hitung', [PerhitunganController::class, 'hitung'])->name('perhitungan.hitung');
-Route::get('/hasil', [HasilController::class, 'index'])->name('hasil');
 
 Route::get('hasil-akhir', [HasilAkhirController::class, 'index'])->name('hasil-akhir.index');
 Route::post('hasil-akhir/generate', [HasilAkhirController::class, 'generate'])->name('hasil-akhir.generate');
