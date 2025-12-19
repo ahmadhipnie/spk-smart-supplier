@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Data Perhitungan Metode SMART</h3>
                     <div class="card-tools">
-                        <a href="{{ route('perhitungan.rumus') }}" class="btn btn-info btn-sm" target="_blank">
+                        <a href="{{ route('perhitungan.rumus') }}" class="btn btn-info btn-sm">
                             <i class="fas fa-calculator"></i> Lihat Rumus
                         </a>
                         @if($hasPerhitungan)
@@ -106,7 +106,7 @@
                                         @endphp
                                         <td class="text-center">
                                             @if($perhitungan)
-                                                <span class="badge badge-info">
+                                                <span class="badge badge-info" style="font-size: 0.9rem;">
                                                     {{ number_format($perhitungan->nilai_utility, 4) }}
                                                 </span>
                                             @else
@@ -122,7 +122,7 @@
                                         @endphp
                                         <td class="text-center">
                                             @if($perhitungan)
-                                                <span class="badge badge-success">
+                                                <span class="badge badge-success" style="font-size: 0.9rem;">
                                                     {{ number_format($perhitungan->nilai_akhir, 4) }}
                                                 </span>
                                             @else
@@ -153,8 +153,8 @@
                 <div class="card-footer">
                     <small class="text-muted">
                         <i class="fas fa-info-circle"></i> 
-                        Nilai Utility: hasil normalisasi nilai (0-1) | 
-                        Nilai Akhir: hasil perkalian utility dengan bobot normalisasi
+                        <strong>Nilai Utility:</strong> hasil normalisasi nilai (skala 0-1) | 
+                        <strong>Nilai Akhir:</strong> hasil perkalian utility dengan bobot normalisasi
                     </small>
                 </div>
             </div>

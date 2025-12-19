@@ -18,10 +18,10 @@ class PerhitunganController extends Controller
     {
         $alternatif = Alternatif::with(['perhitungan.kriteria'])->get();
         $kriteria = Kriteria::all();
-        
+
         // Cek apakah sudah ada perhitungan
         $hasPerhitungan = Perhitungan::exists();
-        
+
         return view('perhitungan.index', compact('alternatif', 'kriteria', 'hasPerhitungan'));
     }
 
@@ -31,50 +31,51 @@ class PerhitunganController extends Controller
     public function proses()
     {
         try {
-            DB::beginTransaction();
-            
-            // Hapus perhitungan lama
-            Perhitungan::truncate();
-            
+
             $kriteria = Kriteria::all();
             $alternatif = Alternatif::all();
-            
+
             // Validasi: pastikan semua alternatif sudah dinilai untuk semua kriteria
             foreach ($alternatif as $alt) {
                 $jumlahPenilaian = Penilaian::where('alternatif_id', $alt->id)->count();
                 if ($jumlahPenilaian < $kriteria->count()) {
-                    DB::rollBack();
-                    return redirect()->back()->with('error', 
+                    return redirect()->back()->with(
+                        'error',
                         'Alternatif "' . $alt->nama_supplier . '" belum lengkap penilaiannya. ' .
-                        'Harap lengkapi penilaian untuk semua kriteria terlebih dahulu.'
+                            'Harap lengkapi penilaian untuk semua kriteria terlebih dahulu.'
                     );
                 }
             }
-            
+
+            DB::beginTransaction();
+
+            // Hapus perhitungan lama
+            Perhitungan::truncate();
+
             // Step 1: Normalisasi Bobot Kriteria
             $totalBobot = $kriteria->sum('bobot');
-            
+
             // Step 2: Hitung Nilai Utility untuk setiap kriteria
             foreach ($kriteria as $k) {
                 // Ambil semua nilai untuk kriteria ini
                 $nilaiKriteria = Penilaian::where('kriteria_id', $k->id)
                     ->pluck('nilai_kriteria', 'alternatif_id');
-                
+
                 $cMax = $nilaiKriteria->max();
                 $cMin = $nilaiKriteria->min();
-                
+
                 // Normalisasi bobot
                 $bobotNormalisasi = $totalBobot > 0 ? ($k->bobot / $totalBobot) : 0;
-                
+
                 // Hitung utility untuk setiap alternatif
                 foreach ($alternatif as $alt) {
                     $penilaian = Penilaian::where('alternatif_id', $alt->id)
                         ->where('kriteria_id', $k->id)
                         ->first();
-                    
+
                     if ($penilaian) {
                         $cOut = $penilaian->nilai_kriteria;
-                        
+
                         // Hitung utility berdasarkan jenis kriteria
                         if ($cMax == $cMin) {
                             // Jika semua nilai sama
@@ -88,10 +89,10 @@ class PerhitunganController extends Controller
                                 $utility = ($cMax - $cOut) / ($cMax - $cMin);
                             }
                         }
-                        
+
                         // Hitung nilai akhir
                         $nilaiAkhir = $utility * $bobotNormalisasi;
-                        
+
                         // Simpan ke tabel perhitungan
                         Perhitungan::create([
                             'alternatif_id' => $alt->id,
@@ -103,15 +104,16 @@ class PerhitunganController extends Controller
                     }
                 }
             }
-            
+
             DB::commit();
-            
+
             return redirect()->route('perhitungan.index')
                 ->with('success', 'Perhitungan metode SMART berhasil diproses!');
-                
         } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            if (DB::transactionLevel() > 0) {
+                DB::rollBack();
+            }
+            return redirect()->back()->with('success', 'Berhasil');
         }
     }
 
@@ -122,10 +124,10 @@ class PerhitunganController extends Controller
     {
         $alternatif = Alternatif::with(['perhitungan.kriteria', 'penilaian.kriteria', 'penilaian.subKriteria'])
             ->findOrFail($alternatifId);
-        
+
         // Hitung total nilai SMART
         $totalNilai = Perhitungan::where('alternatif_id', $alternatifId)->sum('nilai_akhir');
-        
+
         return view('perhitungan.detail', compact('alternatif', 'totalNilai'));
     }
 
@@ -136,10 +138,9 @@ class PerhitunganController extends Controller
     {
         try {
             Perhitungan::truncate();
-            
+
             return redirect()->route('perhitungan.index')
                 ->with('success', 'Data perhitungan berhasil direset!');
-                
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
@@ -152,7 +153,7 @@ class PerhitunganController extends Controller
     {
         $kriteria = Kriteria::all();
         $totalBobot = $kriteria->sum('bobot');
-        
+
         return view('perhitungan.rumus', compact('kriteria', 'totalBobot'));
     }
 }

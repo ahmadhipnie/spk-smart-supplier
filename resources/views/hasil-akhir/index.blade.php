@@ -12,8 +12,8 @@
                             <a href="{{ route('hasil-akhir.perbandingan') }}" class="btn btn-info btn-sm">
                                 <i class="fas fa-chart-bar"></i> Perbandingan
                             </a>
-                            <a href="{{ route('hasil-akhir.export-pdf') }}" class="btn btn-danger btn-sm" target="_blank">
-                                <i class="fas fa-file-pdf"></i> Export PDF
+                            <a href="{{ route('hasil-akhir.export-pdf') }}" class="btn btn-danger btn-sm">
+                                <i class="fas fa-file-pdf"></i> Preview PDF
                             </a>
                             <form action="{{ route('hasil-akhir.reset') }}" method="POST" class="d-inline" 
                                   onsubmit="return confirm('Yakin ingin mereset hasil akhir?')">
@@ -130,9 +130,13 @@
                                         </td>
                                         <td class="text-center">
                                             @if($hasil->ranking <= 3)
-                                                <span class="badge badge-success">Direkomendasikan</span>
+                                                <span class="badge badge-success" style="font-size: 0.9rem; padding: 0.5rem 0.8rem;">
+                                                    <i class="fas fa-check-circle"></i> Direkomendasikan
+                                                </span>
                                             @else
-                                                <span class="badge badge-secondary">Standar</span>
+                                                <span class="badge badge-secondary" style="font-size: 0.9rem; padding: 0.5rem 0.8rem;">
+                                                    <i class="fas fa-info-circle"></i> Standar
+                                                </span>
                                             @endif
                                         </td>
                                         <td class="text-center">
@@ -151,29 +155,41 @@
                         <!-- Statistik -->
                         <div class="row mt-4">
                             <div class="col-md-4">
-                                <div class="info-box bg-success">
-                                    <span class="info-box-icon"><i class="fas fa-trophy"></i></span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">Supplier Terbaik</span>
-                                        <span class="info-box-number">{{ $hasilAkhir->first()->alternatif->nama_supplier }}</span>
+                                <div class="card border-success">
+                                    <div class="card-body text-center">
+                                        <div class="mb-2">
+                                            <i class="fas fa-trophy fa-3x text-success"></i>
+                                        </div>
+                                        <h6 class="text-muted mb-1">Supplier Terbaik</h6>
+                                        <h5 class="text-success mb-0">
+                                            <strong>{{ $hasilAkhir->first()->alternatif->nama_supplier }}</strong>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="info-box bg-info">
-                                    <span class="info-box-icon"><i class="fas fa-star"></i></span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">Nilai Tertinggi</span>
-                                        <span class="info-box-number">{{ number_format($hasilAkhir->first()->total_nilai, 4) }}</span>
+                                <div class="card border-info">
+                                    <div class="card-body text-center">
+                                        <div class="mb-2">
+                                            <i class="fas fa-star fa-3x text-info"></i>
+                                        </div>
+                                        <h6 class="text-muted mb-1">Nilai Tertinggi</h6>
+                                        <h5 class="text-info mb-0">
+                                            <strong>{{ number_format($hasilAkhir->first()->total_nilai, 4) }}</strong>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="info-box bg-warning">
-                                    <span class="info-box-icon"><i class="fas fa-users"></i></span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">Total Alternatif</span>
-                                        <span class="info-box-number">{{ $hasilAkhir->count() }}</span>
+                                <div class="card border-warning">
+                                    <div class="card-body text-center">
+                                        <div class="mb-2">
+                                            <i class="fas fa-users fa-3x text-warning"></i>
+                                        </div>
+                                        <h6 class="text-muted mb-1">Total Alternatif</h6>
+                                        <h5 class="text-warning mb-0">
+                                            <strong>{{ $hasilAkhir->count() }}</strong>
+                                        </h5>
                                     </div>
                                 </div>
                             </div>

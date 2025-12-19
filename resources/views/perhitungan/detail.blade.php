@@ -36,11 +36,14 @@
                             </table>
                         </div>
                         <div class="col-md-6">
-                            <div class="info-box bg-success">
-                                <span class="info-box-icon"><i class="fas fa-trophy"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Total Nilai SMART</span>
-                                    <span class="info-box-number">{{ number_format($totalNilai, 4) }}</span>
+                            <div class="card border-success">
+                                <div class="card-body text-center">
+                                    <h6 class="text-success mb-2">
+                                        <i class="fas fa-trophy"></i> Total Nilai SMART
+                                    </h6>
+                                    <h3 class="text-success mb-0">
+                                        <strong>{{ number_format($totalNilai, 4) }}</strong>
+                                    </h3>
                                 </div>
                             </div>
                         </div>
