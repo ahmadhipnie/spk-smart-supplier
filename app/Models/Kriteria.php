@@ -10,6 +10,18 @@ class Kriteria extends Model
     use HasFactory;
 
     protected $table = 'kriteria';
-    protected $primaryKey = 'id_kriteria';
-    public $timestamps = true;
+    
+    protected $fillable = [
+        'kode_kriteria',
+        'nama_kriteria',
+        'jenis_kriteria',
+        'bobot',
+        'keterangan'
+    ];
+
+    // Relasi ke sub kriteria
+    public function subKriteria()
+    {
+        return $this->hasMany(SubKriteria::class, 'kriteria_id');
+    }
 }

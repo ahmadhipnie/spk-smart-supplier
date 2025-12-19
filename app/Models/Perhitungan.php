@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Penilaian extends Model
+class Perhitungan extends Model
 {
     use HasFactory;
 
-    protected $table = 'penilaian';
+    protected $table = 'perhitungan';
     
     protected $fillable = [
         'alternatif_id',
         'kriteria_id',
-        'sub_kriteria_id',
-        'nilai_kriteria'
+        'nilai_utility',
+        'bobot_kriteria',
+        'nilai_akhir'
     ];
 
     // Relasi ke alternatif
@@ -28,11 +29,5 @@ class Penilaian extends Model
     public function kriteria()
     {
         return $this->belongsTo(Kriteria::class, 'kriteria_id');
-    }
-
-    // Relasi ke sub kriteria
-    public function subKriteria()
-    {
-        return $this->belongsTo(SubKriteria::class, 'sub_kriteria_id');
     }
 }
