@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -14,6 +15,8 @@ class UserSeeder extends Seeder
                 'name' => 'Administrator',
                 'email' => 'admin@admin.com',
                 'password' => Hash::make('password'),
+                'role' => 'admin',
+                'email_verified_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -21,6 +24,8 @@ class UserSeeder extends Seeder
                 'name' => 'User Demo',
                 'email' => 'user@user.com',
                 'password' => Hash::make('password'),
+                'role' => 'user',
+                'email_verified_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now()
             ]
