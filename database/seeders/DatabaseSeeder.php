@@ -10,6 +10,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             KriteriaSeeder::class,
+            SupplierSeeder::class,
+            SubKriteriaSeeder::class,
+            AlternatifSeeder::class,
         ]);
     }
 }

@@ -11,9 +11,12 @@
                         <a href="{{ route('supplier.index') }}" class="btn btn-secondary btn-sm">
                             <i class="fas fa-arrow-left"></i> Kembali
                         </a>
+
+                        @if(auth()->user()->role === 'admin')
                         <a href="{{ route('supplier.edit', $supplier->id) }}" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit"></i> Edit
                         </a>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">

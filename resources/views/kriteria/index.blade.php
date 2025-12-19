@@ -8,9 +8,13 @@
                 <div class="card-header">
                     <h3 class="card-title">Data Kriteria</h3>
                     <div class="card-tools">
+
+                        @if(auth()->user()->role === 'admin')
                         <a href="{{ route('kriteria.create') }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-plus"></i> Tambah Kriteria
                         </a>
+                        @endif
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -33,7 +37,9 @@
                                     <th>Jenis</th>
                                     <th>Bobot (%)</th>
                                     <th>Keterangan</th>
+                                    @if(auth()->user()->role === 'admin')
                                     <th width="15%">Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,9 +56,13 @@
                                     <td>{{ $item->bobot }}</td>
                                     <td>{{ $item->keterangan ?? '-' }}</td>
                                     <td>
+                                        @if(auth()->user()->role === 'admin')
                                         <a href="{{ route('kriteria.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        @endif
+
+                                        @if(auth()->user()->role === 'admin')
                                         <form action="{{ route('kriteria.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
@@ -60,6 +70,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @empty
