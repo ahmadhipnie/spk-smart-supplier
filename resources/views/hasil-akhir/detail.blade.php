@@ -14,10 +14,10 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <!-- Informasi Supplier -->
+                    <!-- Informasi Supplier dan Hasil Penilaian -->
                     <div class="row mb-4">
                         <div class="col-md-6">
-                            <h5 class="text-primary">
+                            <h5 class="text-primary mb-3">
                                 <i class="fas fa-user"></i> Informasi Supplier
                             </h5>
                             <table class="table table-borderless">
@@ -44,32 +44,37 @@
                             </table>
                         </div>
                         <div class="col-md-6">
-                            <h5 class="text-success">
-                                <i class="fas fa-trophy"></i> Hasil Penilaian
-                            </h5>
-                            <div class="info-box bg-{{ $hasilAkhir->ranking == 1 ? 'success' : 'info' }}">
-                                <span class="info-box-icon">
-                                    @if($hasilAkhir->ranking == 1)
-                                        <i class="fas fa-trophy"></i>
-                                    @else
-                                        <i class="fas fa-medal"></i>
-                                    @endif
-                                </span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Ranking</span>
-                                    <span class="info-box-number">#{{ $hasilAkhir->ranking }}</span>
+                            <!-- Card Hasil Penilaian User Friendly -->
+                            <div class="card border-0" style="border-radius: 15px;">
+                                <div class="card-body p-4">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="fas fa-trophy fa-2x text-success mr-2"></i>
+                                        <span class="h5 font-weight-bold text-success mb-0">Hasil Penilaian</span>
+                                    </div>
+                                    
+                                    <!-- Ranking Card -->
+                                    <div class="rounded mb-2 p-3 d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: #fff; box-shadow: 0 3px 8px rgba(46, 204, 113, 0.3);">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-medal fa-lg mr-2"></i>
+                                            <span class="font-weight-bold" style="font-size: 1.1rem;">Ranking #{{ $hasilAkhir->ranking }}</span>
+                                        </div>
+                                        @if($hasilAkhir->ranking == 1)
+                                            <i class="fas fa-crown fa-lg"></i>
+                                        @endif
+                                    </div>
+                                    
+                                    <!-- Nilai SMART Card -->
+                                    <div class="rounded mb-2 p-3 d-flex align-items-center" style="background: linear-gradient(135deg, #f6c23e 0%, #f4b400 100%); color: #fff; box-shadow: 0 3px 8px rgba(246, 194, 62, 0.3);">
+                                        <i class="fas fa-star fa-lg mr-2"></i>
+                                        <span style="font-size: 1rem;">Total Nilai SMART <b style="font-size: 1.1rem;">{{ number_format($hasilAkhir->total_nilai, 4) }}</b></span>
+                                    </div>
+                                    
+                                    <!-- Tanggal Card -->
+                                    <div class="rounded p-3 d-flex align-items-center" style="background: #f8f9fc; color: #5a5c69; border: 1px solid #e3e6f0;">
+                                        <i class="fas fa-calendar fa-lg mr-2" style="color: #858796;"></i>
+                                        <span><b>Tanggal Perhitungan:</b> {{ $hasilAkhir->tanggal_perhitungan->format('d F Y') }}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="info-box bg-warning">
-                                <span class="info-box-icon"><i class="fas fa-star"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Total Nilai SMART</span>
-                                    <span class="info-box-number">{{ number_format($hasilAkhir->total_nilai, 4) }}</span>
-                                </div>
-                            </div>
-                            <div class="alert alert-light border">
-                                <i class="fas fa-calendar"></i> 
-                                <strong>Tanggal Perhitungan:</strong> {{ $hasilAkhir->tanggal_perhitungan->format('d F Y') }}
                             </div>
                         </div>
                     </div>

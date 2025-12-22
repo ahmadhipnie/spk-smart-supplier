@@ -58,21 +58,17 @@ Route::middleware('auth')->group(function () {
     |-------------------------
     */
     
-    // Kriteria - Index & Show untuk semua role
+    // Kriteria - Index untuk semua role
     Route::get('kriteria', [KriteriaController::class, 'index'])->name('kriteria.index');
-    Route::get('kriteria/{kriteria}', [KriteriaController::class, 'show'])->name('kriteria.show');
     
-    // Supplier - Index & Show untuk semua role
+    // Supplier - Index untuk semua role
     Route::get('supplier', [SupplierController::class, 'index'])->name('supplier.index');
-    Route::get('supplier/{supplier}', [SupplierController::class, 'show'])->name('supplier.show');
     
-    // Sub Kriteria - Index & Show untuk semua role
+    // Sub Kriteria - Index untuk semua role
     Route::get('sub-kriteria', [SubKriteriaController::class, 'index'])->name('sub-kriteria.index');
-    Route::get('sub-kriteria/{sub_kriteria}', [SubKriteriaController::class, 'show'])->name('sub-kriteria.show');
     
-    // Alternatif - Index & Show untuk semua role
+    // Alternatif - Index untuk semua role
     Route::get('alternatif', [AlternatifController::class, 'index'])->name('alternatif.index');
-    Route::get('alternatif/{alternatif}', [AlternatifController::class, 'show'])->name('alternatif.show');
 
     /*
     |-------------------------
@@ -108,6 +104,25 @@ Route::middleware('auth')->group(function () {
         Route::put('alternatif/{alternatif}', [AlternatifController::class, 'update'])->name('alternatif.update');
         Route::delete('alternatif/{alternatif}', [AlternatifController::class, 'destroy'])->name('alternatif.destroy');
     });
+
+    /*
+    |-------------------------
+    | DETAIL/SHOW ROUTES (dengan parameter dinamis)
+    | Harus di bawah route spesifik seperti create/edit
+    |-------------------------
+    */
+    
+    // Kriteria - Show untuk semua role
+    Route::get('kriteria/{kriteria}', [KriteriaController::class, 'show'])->name('kriteria.show');
+    
+    // Supplier - Show untuk semua role
+    Route::get('supplier/{supplier}', [SupplierController::class, 'show'])->name('supplier.show');
+    
+    // Sub Kriteria - Show untuk semua role
+    Route::get('sub-kriteria/{sub_kriteria}', [SubKriteriaController::class, 'show'])->name('sub-kriteria.show');
+    
+    // Alternatif - Show untuk semua role
+    Route::get('alternatif/{alternatif}', [AlternatifController::class, 'show'])->name('alternatif.show');
 
     /*
     |-------------------------
