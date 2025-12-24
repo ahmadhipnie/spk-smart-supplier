@@ -1,7 +1,9 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-        <div class="sidebar-brand-icon"><i class="fas fa-database"></i></div>
-        <div class="sidebar-brand-text mx-3">SPK SMART</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+            <img src="{{ asset('img/logo2.png') }}" alt="logo" style="width:50px; height:50px; object-fit:contain;">
+            <div class="sidebar-brand-text mx-3" style="font-weight:700;">SPK SMART</div>
+        </div>
     </a>
     <hr class="sidebar-divider my-0">
     
