@@ -9,10 +9,10 @@
     padding: 20px;
     font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 ">
-    <div style="width: 100%; max-width: 400px;">
-        <!-- Logo -->
+    <div style="width: 100%; max-width: 640px;">
+        <!-- Title (restored) -->
         <div style="margin-bottom: 25px; text-align: center;">
-            <a href="#" style="text-decoration: none;">
+            <a href="#" style="text-decoration: none; color: inherit;">
                 <h1 style="
                     color: #fff;
                     font-size: 32px;
@@ -51,147 +51,156 @@
                 </h5>
             </div>
 
-            <div style="padding: 30px;">
-                <!-- Alert Success -->
-                @if(session('success'))
-                    <div style="
-                        background-color: #d4edda;
-                        color: #155724;
-                        padding: 12px 15px;
-                        border-radius: 5px;
-                        margin-bottom: 20px;
-                        font-size: 14px;
-                        border-left: 4px solid #28a745;
-                    ">
-                        <i class="fas fa-check-circle" style="margin-right: 5px;"></i> {{ session('success') }}
-                    </div>
-                @endif
+            <!-- Content: logo (left) + form (right) -->
+            <div style="padding: 30px; display:flex; gap:20px; align-items:center; flex-wrap:wrap;">
+                <!-- Logo (di dalam card, kiri) -->
+                <div style="flex:0 0 180px; display:flex; align-items:center; justify-content:center;">
+                    <img src="{{ asset('img/logo2.png') }}" alt="SPK SMART" style="max-width:180px; width:100%; height:auto; object-fit:contain; display:block;">
+                </div>
 
-                <!-- Alert Error -->
-                @if($errors->any())
-                    <div style="
-                        background-color: #f8d7da;
-                        color: #721c24;
-                        padding: 12px 15px;
-                        border-radius: 5px;
-                        margin-bottom: 20px;
-                        font-size: 14px;
-                        border-left: 4px solid #dc3545;
-                    ">
-                        <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i> 
-                        {{ $errors->first() }}
-                    </div>
-                @endif
-
-                <form action="{{ route('login.post') }}" method="POST">
-                    @csrf
-                    
-                    <!-- Email Input -->
-                    <div style="margin-bottom: 20px; position: relative;">
-                        <label style="
-                            display: block;
-                            margin-bottom: 8px;
-                            color: #555;
-                            font-weight: 600;
+                <!-- Form + Alerts -->
+                <div style="flex:1; min-width:0;">
+                    <!-- Alert Success -->
+                    @if(session('success'))
+                        <div style="
+                            background-color: #d4edda;
+                            color: #155724;
+                            padding: 12px 15px;
+                            border-radius: 5px;
+                            margin-bottom: 20px;
                             font-size: 14px;
-                        ">Email Address</label>
-                        <div style="position: relative;">
-                            <input type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="Masukkan email..."
-                                style="
-                                    width: 100%;
-                                    padding: 12px 15px 12px 45px;
-                                    border: 1px solid #ddd;
-                                    border-radius: 6px;
-                                    font-size: 14px;
-                                    color: #333;
-                                    background-color: #fff;
-                                    box-sizing: border-box; /* Penting agar padding tidak melebarkan input */
-                                    transition: border-color 0.3s;
-                                "
-                                onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
-                                onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';"
-                            >
-                            <i class="fas fa-envelope" style="
-                                position: absolute;
-                                left: 15px;
-                                top: 50%;
-                                transform: translateY(-50%);
-                                color: #aaa;
-                            "></i>
-                        </div>
-                    </div>
-
-                    <!-- Password Input -->
-                    <div style="margin-bottom: 20px; position: relative;">
-                        <label style="
-                            display: block;
-                            margin-bottom: 8px;
-                            color: #555;
-                            font-weight: 600;
-                            font-size: 14px;
-                        ">Password</label>
-                        <div style="position: relative;">
-                            <input type="password" name="password" required placeholder="Masukkan password..."
-                                style="
-                                    width: 100%;
-                                    padding: 12px 15px 12px 45px;
-                                    border: 1px solid #ddd;
-                                    border-radius: 6px;
-                                    font-size: 14px;
-                                    color: #333;
-                                    background-color: #fff;
-                                    box-sizing: border-box;
-                                    transition: border-color 0.3s;
-                                "
-                                onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
-                                onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';"
-                            >
-                            <i class="fas fa-lock" style="
-                                position: absolute;
-                                left: 15px;
-                                top: 50%;
-                                transform: translateY(-50%);
-                                color: #aaa;
-                            "></i>
-                        </div>
-                    </div>
-
-                    <!-- Remember Me -->
-                    <div style="margin-bottom: 25px; display: flex; align-items: center;">
-                        <input type="checkbox" name="remember" id="remember" style="
-                            width: 16px;
-                            height: 16px;
-                            margin-right: 8px;
-                            cursor: pointer;
+                            border-left: 4px solid #28a745;
                         ">
-                        <label for="remember" style="
-                            font-size: 14px;
-                            color: #666;
-                            cursor: pointer;
-                            user-select: none;
-                        ">Ingat Saya</label>
-                    </div>
+                            <i class="fas fa-check-circle" style="margin-right: 5px;"></i> {{ session('success') }}
+                        </div>
+                    @endif
 
-                    <!-- Button Login -->
-                    <button type="submit" style="
-                        width: 100%;
-                        padding: 12px;
-                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                        color: #fff;
-                        border: none;
-                        border-radius: 6px;
-                        font-size: 16px;
-                        font-weight: 600;
-                        cursor: pointer;
-                        box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
-                        transition: transform 0.2s, box-shadow 0.2s;
-                    "
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(102, 126, 234, 0.4)';"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(102, 126, 234, 0.3)';"
-                    >
-                        <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i> LOGIN
-                    </button>
-                </form>
+                    <!-- Alert Error -->
+                    @if($errors->any())
+                        <div style="
+                            background-color: #f8d7da;
+                            color: #721c24;
+                            padding: 12px 15px;
+                            border-radius: 5px;
+                            margin-bottom: 20px;
+                            font-size: 14px;
+                            border-left: 4px solid #dc3545;
+                        ">
+                            <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i> 
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
+
+                    <form action="{{ route('login.post') }}" method="POST">
+                        @csrf
+                        
+                        <!-- Email Input -->
+                        <div style="margin-bottom: 20px; position: relative;">
+                            <label style="
+                                display: block;
+                                margin-bottom: 8px;
+                                color: #555;
+                                font-weight: 600;
+                                font-size: 14px;
+                            ">Email Address</label>
+                            <div style="position: relative;">
+                                <input type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="Masukkan email..."
+                                    style="
+                                        width: 100%;
+                                        padding: 12px 15px 12px 45px;
+                                        border: 1px solid #ddd;
+                                        border-radius: 6px;
+                                        font-size: 14px;
+                                        color: #333;
+                                        background-color: #fff;
+                                        box-sizing: border-box; /* Penting agar padding tidak melebarkan input */
+                                        transition: border-color 0.3s;
+                                    "
+                                    onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+                                    onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';"
+                                >
+                                <i class="fas fa-envelope" style="
+                                    position: absolute;
+                                    left: 15px;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    color: #aaa;
+                                "></i>
+                            </div>
+                        </div>
+
+                        <!-- Password Input -->
+                        <div style="margin-bottom: 20px; position: relative;">
+                            <label style="
+                                display: block;
+                                margin-bottom: 8px;
+                                color: #555;
+                                font-weight: 600;
+                                font-size: 14px;
+                            ">Password</label>
+                            <div style="position: relative;">
+                                <input type="password" name="password" required placeholder="Masukkan password..."
+                                    style="
+                                        width: 100%;
+                                        padding: 12px 15px 12px 45px;
+                                        border: 1px solid #ddd;
+                                        border-radius: 6px;
+                                        font-size: 14px;
+                                        color: #333;
+                                        background-color: #fff;
+                                        box-sizing: border-box;
+                                        transition: border-color 0.3s;
+                                    "
+                                    onfocus="this.style.borderColor='#667eea'; this.style.boxShadow='0 0 0 3px rgba(102, 126, 234, 0.1)';"
+                                    onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none';"
+                                >
+                                <i class="fas fa-lock" style="
+                                    position: absolute;
+                                    left: 15px;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    color: #aaa;
+                                "></i>
+                            </div>
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div style="margin-bottom: 25px; display: flex; align-items: center;">
+                            <input type="checkbox" name="remember" id="remember" style="
+                                width: 16px;
+                                height: 16px;
+                                margin-right: 8px;
+                                cursor: pointer;
+                            ">
+                            <label for="remember" style="
+                                font-size: 14px;
+                                color: #666;
+                                cursor: pointer;
+                                user-select: none;
+                            ">Ingat Saya</label>
+                        </div>
+
+                        <!-- Button Login -->
+                        <button type="submit" style="
+                            width: 100%;
+                            padding: 12px;
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            color: #fff;
+                            border: none;
+                            border-radius: 6px;
+                            font-size: 16px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+                            transition: transform 0.2s, box-shadow 0.2s;
+                        "
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(102, 126, 234, 0.4)';"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(102, 126, 234, 0.3)';"
+                        >
+                            <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i> LOGIN
+                        </button>
+                    </form>
+                </div>
             </div>
 
             {{-- <!-- Footer Card -->
